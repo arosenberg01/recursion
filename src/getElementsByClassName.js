@@ -6,23 +6,17 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className){
   var results = [];
-  
-  className = className.toLowerCase();
-
- 
 
   var search = function(node) {
     for (var i = 0; i < node.childNodes.length; i++) {
-    	console.log('Checking node: ' + node);
     	var child = node.childNodes[i];
       if (child.nodeType == document.ELEMENT_NODE) {
-        if (child.getAttribute('class') === className) {
-          results.push(child);
+    		if (child.classList.contains(className)) {
+			    results.push(child);
         }
         search(child);
-      }
-    }
-    	
+      }  
+    }	
   };
 
   search(document.documentElement);
