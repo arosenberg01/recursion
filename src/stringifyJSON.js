@@ -8,10 +8,10 @@
 var y = {
   prop1: 'a',
   propObjX: {
-    prop2: 'b',
+    prop2: 1,
     propObjY: {
       prop3: 'c',
-      prop4: 'd'
+      prop4: 2
     }
   }
 };
@@ -29,74 +29,47 @@ var testObj = {
   obj: y
 };
 
-var stringifyJSON = function(input, accumulator) {
-  if (accumulator === undefined) {
-    accumulator = '';
-  }
+var stringifyJSON = function(input) {
+ 
   
   if (typeof input === 'object' && input !== null) {
     if (Array.isArray(input)) {
       if (input.length > 0) {
-        // console.log(input + ' = array');
-
-        // var front = '[';
-        // var back = ']'
-
-        // for (var i = 0; i < input.length; i++) {
-        //   return stringifyJSON(input[i], accumulator)
-        // }
+    
       } else {
-        accumulator += '\'[]\''; 
+        return '\'[]\''; 
       }
 
     } else {
-      if (Object.keys(input).length > 0) {
+      console.log('obj found!');
+      var out = '{';
         for (var key in input) {
-          if (typeof input[key] === 'obje"ct') {
-            // console.log('nested obj');
-            return stringifyJSON(input[key], accumulator);
-          } else {
-            accumulator += key + ' -- ' + input[key] + ', ';
-            // console.log('Accum-in: ' + accumulator);
+          if (stringifyJSON(input[key])) {
+            out += stringifyJSON(key) + ":" + stringifyJSON(input[key]) + ",";
           }
-        }
-      } else {
-        accumulator += '\'{}\''; 
-      }
+        } 
+      out += '}';
+      return out
     }
 
   } else if (typeof input === 'string') {
-    var result = '\'\"' + input + '\"\'';
-    // console.log(input + ' (' + typeof input + ')' + ' to ' + result + ' (' + typeof result + ')' );
-    accumulator += ' ' + result + ' ';
 
+    return '\"' + input + '\"';
   } else if (typeof input === 'boolean' || typeof input === 'number' || input === null) {
-    var result = '\'' + input + '\'';
-    // console.log(input + ' (' + typeof input + ')' + ' to ' + result + ' (' + typeof result + ')' );
-    accumulator += ' ' + result + ' ';
-  } else {
-    // console.log (input + ' = ???');
+    return '' + input;
   } 
 
-  return accumulator;
 };
 
-
-    console.log(stringifyJSON(testObj[key]));
-  }
-}();
 
 
 var run = function() {
   for (var key in testObj) {
-    
-var outerFun = function() {
-  var innerFun = function() {
+    console.log(stringifyJSON(testObj[key]));
+  }
+}();
 
-  };
-
-};
-
+// console.log(stringifyJSON(y));
 
 
 
