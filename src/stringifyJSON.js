@@ -52,12 +52,12 @@ var stringifyJSON = function(input, accumulator) {
     } else {
       if (Object.keys(input).length > 0) {
         for (var key in input) {
-          if (typeof input[key] === 'object') {
-            console.log('nested obj');
+          if (typeof input[key] === 'obje"ct') {
+            // console.log('nested obj');
             return stringifyJSON(input[key], accumulator);
           } else {
             accumulator += key + ' -- ' + input[key] + ', ';
-            console.log('Accum-in: ' + accumulator);
+            // console.log('Accum-in: ' + accumulator);
           }
         }
       } else {
@@ -67,28 +67,35 @@ var stringifyJSON = function(input, accumulator) {
 
   } else if (typeof input === 'string') {
     var result = '\'\"' + input + '\"\'';
-    console.log(input + ' (' + typeof input + ')' + ' to ' + result + ' (' + typeof result + ')' );
+    // console.log(input + ' (' + typeof input + ')' + ' to ' + result + ' (' + typeof result + ')' );
     accumulator += ' ' + result + ' ';
 
   } else if (typeof input === 'boolean' || typeof input === 'number' || input === null) {
     var result = '\'' + input + '\'';
-    console.log(input + ' (' + typeof input + ')' + ' to ' + result + ' (' + typeof result + ')' );
+    // console.log(input + ' (' + typeof input + ')' + ' to ' + result + ' (' + typeof result + ')' );
     accumulator += ' ' + result + ' ';
   } else {
-    console.log (input + ' = ???');
+    // console.log (input + ' = ???');
   } 
 
   return accumulator;
 };
 
 
-
-var run = function() {
-  for (var key in testObj) {
     console.log(stringifyJSON(testObj[key]));
   }
 }();
 
+
+var run = function() {
+  for (var key in testObj) {
+    
+var outerFun = function() {
+  var innerFun = function() {
+
+  };
+
+};
 
 
 
