@@ -5,9 +5,15 @@
 
 // but you don't so you're going to write it from scratch:
 
+
+
 var stringifyJSON = function(input) {
- 
-  if (typeof input === 'object' && input !== null) {
+  
+  if (typeof input === 'string') {
+    return '\"' + input + '\"';
+  } else  if (typeof input === 'boolean' || typeof input === 'number' || input === null) {
+    return '' + input; 
+  } else if (typeof input === 'object') {
     if (Array.isArray(input)) {
       var out = '[';
       input.forEach(function(element, index, array) {
@@ -18,7 +24,7 @@ var stringifyJSON = function(input) {
         out = out.slice(0, out.length-1);
       }
       out += ']';
-
+      
       return out;
 
     } else {
@@ -33,15 +39,9 @@ var stringifyJSON = function(input) {
       }
       out += '}';
 
-      return out;
+      return out
     }
-
-  } else if (typeof input === 'string') {
-    return '\"' + input + '\"';
-  } else if (typeof input === 'boolean' || typeof input === 'number' || input === null) {
-    return '' + input;
   } 
-
 };
 
 var y = {
