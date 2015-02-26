@@ -34,12 +34,16 @@ var stringifyJSON = function(input) {
   
   if (typeof input === 'object' && input !== null) {
     if (Array.isArray(input)) {
-      if (input.length > 0) {
-    
-      } else {
-        return '\'[]\''; 
+      var out = '[';
+      input.forEach(function(element, index, array) {
+        out += stringifyJSON(element) + ',';
+      });
+      
+      if (out.slice(-1) === ',') {
+        out = out.slice(0, out.length-1);
       }
-
+      out += ']';
+      return out;
     } else {
       console.log('obj found!');
       var out = '{';
@@ -47,13 +51,13 @@ var stringifyJSON = function(input) {
           if (stringifyJSON(input[key])) {
             out += stringifyJSON(key) + ":" + stringifyJSON(input[key]) + ",";
           }
-        } 
+        }
+
       out += '}';
       return out
     }
 
   } else if (typeof input === 'string') {
-
     return '\"' + input + '\"';
   } else if (typeof input === 'boolean' || typeof input === 'number' || input === null) {
     return '' + input;
